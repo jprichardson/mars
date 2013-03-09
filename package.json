@@ -1,0 +1,28 @@
+{
+  "name" : "omed", 
+  "version" : "0.0.1",
+  "description" :"",
+  "homepage" : [
+    ""
+  ],
+  "repository" : {
+    "type" : "git", 
+    "url" : ""
+  },
+  "keywords" : [],
+  "author" : "JP Richardson <jprichardson@gmail.com>",
+  "licenses" : [ {
+    "type" : "MIT",
+    "url" : ""
+  }],
+  "dependencies" : {},
+   "devDependencies":{},
+  "main" : "./lib/omed.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "bin": {
+    "omed": "./bin/omed"
+  },
+  "preferGlobal": true
+}
