@@ -5,10 +5,11 @@ var exec = require('child_process').exec
   , colors = require('colors')
   , cl = require('cl')
   , fs = require('fs')
+  , mars = require('../lib/mars')
 
-if (!fs.existsSync('.git')) cl.exit(101, "Can not find the .git directory.")
+mars.checkGitDirExistsSync()
 
-var HEAD = fs.readFileSync('.git/HEAD', 'utf8').toString()
+var HEAD = mars.getHeadSync()
   , head = HEAD.substr(0,7)
 
 main()
@@ -21,58 +22,40 @@ function main () {
   })
 }
 
-
 function format (stdout) {
-  var lines = stdout.split('\n')
-    , R_NUM = /([^\?]*)mars(\d*)/ //(blah, omed%d, master)
-    , R_DC =  /\)|\|/ // ) date | comment | hash
-    , rows = []
-
   var table = new Table({
     head: ['^', '#', 'commit', 'desc', 'date'],
     colWidths: [4, 6, 10, 40, 30]
   })
 
-  lines.forEach(function(line) {
-    var data = line.match(R_NUM)
-      ,  row = [' '] //first field for empty current
+  var rows = []
 
-
-    if (data && data.length >= 3) {
-      var num = data[2].trim()
-      row.push(num)
-
-      data = line.split(R_DC)
-      if (data.length >= 4) {
-        row.push(data[3].trim())
-        row.push(data[2].trim()) //comment
-        row.push(data[1].trim()) //date
+  mars.getMarsData(HEAD, function(err, data, current) {
+    if (err) cl.exit(102, err)
+    
+    data.forEach(function(marsTag) {
+      var row = [
+        ' ',  //first field for empty current 
+        marsTag.num.toString(),
+        marsTag.commit,
+        marsTag.description,
+        marsTag.date
+      ] 
+    
+      if (marsTag.isCurrent) {
+        row[0] = '=>'
+        for (var i = 1; i < row.length; ++i) row[i] = row[i].bold.magenta;
       }
-      /*else if (data.length >= 1) {
-        row.push(''); //empty comment
-        row.push(data[0].trim())
-      }*/
 
-      formatRow(row)
       rows.push(row)
-    }
+    })
+
+    table.push.apply(table, rows)
+    console.log(table.toString())
   })
-  
-  table.push.apply(table, rows)
-
-  console.log(table.toString())
 }
 
-function formatRow (row) {
-  var commit = row[2]
-    , isCurrent = (commit === head)
 
-  if (isCurrent) {
-    row[0] = '=>'
 
-    for (var i = 1; i < row.length; ++i) {
-      row[i] = row[i].bold.magenta;
-    }
-  }
-}
+
 
