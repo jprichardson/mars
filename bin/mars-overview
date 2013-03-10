@@ -6,11 +6,11 @@ var exec = require('child_process').exec
   , cl = require('cl')
   , fs = require('fs')
   , mars = require('../lib/mars')
+  , cli = require('../lib/cli')
 
-mars.checkGitDirExistsSync()
+cli.init('Overview of demo mars steps.')
 
-var HEAD = mars.getHeadSync()
-  , head = HEAD.substr(0,7)
+var hobj = mars.getHeadObjSync()
 
 var table = new Table({
   head: ['^', '#', 'commit', 'desc', 'date'],
@@ -19,7 +19,7 @@ var table = new Table({
 
 var rows = []
 
-mars.getMarsData(HEAD, function(err, data, current) {
+mars.getMarsData(hobj.HEAD, function(err, data, current) {
   if (err) cl.exit(102, err)
   
   data.forEach(function(marsTag) {

@@ -1,16 +1,30 @@
 #!/usr/bin/env node
 
-var program = require('commander')
+var exec = require('child_process').exec
+  , Table = require('cli-table')
+  , colors = require('colors')
+  , cl = require('cl')
+  , fs = require('fs')
+  , mars = require('../lib/mars')
+  , cli = require('../lib/cli')
 
-var usage = program.usage()
-usage += [
-  " [msg]\n",
-  "\n",
-  "  Tag your demo."
-].join('')
+cli.init('Tag a mars demo step.')
 
-program.usage(usage)
+var hobj = mars.getHeadObjSync()
 
-program.version(require('../package').version)
-  .parse(process.argv)
+mars.getMarsData(hobj.HEAD, function(err, data, current) {
+  var tag;
+  if (err) //probably no mars steps yet
+    tag = 'mars0'
+
+  if (!data || data.length == 0)
+    tag = 'mars0'
+  else if (data.length > 0)
+    tag = 'mars' + data.length
+
+  exec('git tag ' + tag, function(err, stdout, stderr) {
+    if (err) cl.exit(101, err)
+    console.log('Tagged with ' + tag)
+  })
+})
 
