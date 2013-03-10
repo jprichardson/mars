@@ -21,7 +21,9 @@
     "commander": "~1.1.1",
     "cli-table": "~0.2.0",
     "colors": "~0.6.0-1",
-    "cl": "0.0.1"
+    "cl": "0.0.1",
+    "string": "~1.2.1",
+    "nextflow": "~0.3.0"
   },
   "devDependencies": {},
   "scripts": {
