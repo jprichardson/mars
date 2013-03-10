@@ -12,50 +12,33 @@ mars.checkGitDirExistsSync()
 var HEAD = mars.getHeadSync()
   , head = HEAD.substr(0,7)
 
-main()
-function main () {
-  var cmd = "git log --tags --simplify-by-decoration --pretty='format:%d %ai | %s | %h'"
+var table = new Table({
+  head: ['^', '#', 'commit', 'desc', 'date'],
+  colWidths: [4, 6, 10, 40, 30]
+})
 
-  exec(cmd, function(err, stdout, stderr) {
-    if (err) return cl.exit(100, err)
-    format(stdout)
+var rows = []
+
+mars.getMarsData(HEAD, function(err, data, current) {
+  if (err) cl.exit(102, err)
+  
+  data.forEach(function(marsTag) {
+    var row = [
+      ' ',  //first field for empty current 
+      marsTag.num.toString(),
+      marsTag.commit,
+      marsTag.description,
+      marsTag.date
+    ] 
+  
+    if (marsTag.isCurrent) {
+      row[0] = '=>'
+      for (var i = 1; i < row.length; ++i) row[i] = row[i].bold.magenta;
+    }
+
+    rows.push(row)
   })
-}
 
-function format (stdout) {
-  var table = new Table({
-    head: ['^', '#', 'commit', 'desc', 'date'],
-    colWidths: [4, 6, 10, 40, 30]
-  })
-
-  var rows = []
-
-  mars.getMarsData(HEAD, function(err, data, current) {
-    if (err) cl.exit(102, err)
-    
-    data.forEach(function(marsTag) {
-      var row = [
-        ' ',  //first field for empty current 
-        marsTag.num.toString(),
-        marsTag.commit,
-        marsTag.description,
-        marsTag.date
-      ] 
-    
-      if (marsTag.isCurrent) {
-        row[0] = '=>'
-        for (var i = 1; i < row.length; ++i) row[i] = row[i].bold.magenta;
-      }
-
-      rows.push(row)
-    })
-
-    table.push.apply(table, rows)
-    console.log(table.toString())
-  })
-}
-
-
-
-
-
+  table.push.apply(table, rows)
+  console.log(table.toString())
+})
