@@ -24,7 +24,7 @@ function main () {
 
 function format (stdout) {
   var lines = stdout.split('\n')
-    , R_NUM = /([^\?]*)omed(\d*)/ //(blah, omed%d, master)
+    , R_NUM = /([^\?]*)mars(\d*)/ //(blah, omed%d, master)
     , R_DC =  /\)|\|/ // ) date | comment | hash
     , rows = []
 
@@ -38,7 +38,7 @@ function format (stdout) {
       ,  row = [' '] //first field for empty current
 
 
-    if (data.length >= 3) {
+    if (data && data.length >= 3) {
       var num = data[2].trim()
       row.push(num)
 
