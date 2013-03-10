@@ -1,4 +1,4 @@
-Node.js - omed
+Node.js - mars
 ================
 
 Type description here...
@@ -12,7 +12,7 @@ Why?
 Installation
 ------------
 
-    npm install omed
+    npm install mars
 
 
 

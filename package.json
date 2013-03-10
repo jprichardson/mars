@@ -1,5 +1,5 @@
 {
-  "name": "omed",
+  "name": "mars",
   "version": "0.0.1",
   "description": "",
   "homepage": [
@@ -24,12 +24,11 @@
     "cl": "0.0.1"
   },
   "devDependencies": {},
-  "main": "./lib/omed.js",
   "scripts": {
     "test": "mocha test"
   },
   "bin": {
-    "omed-overview": "./bin/omed-overview"
+    "mars-overview": "./bin/mars-overview"
   },
   "preferGlobal": true
 }
