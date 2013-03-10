@@ -1,18 +1,5 @@
 #!/usr/bin/env node
 
-var mars = require('../lib/mars')
-  , string = require('string')
-  , cl = require('cl')
-  , colors = require('colors')
-
-mars.checkGitDirExistsSync()
-
-var HEAD = mars.getHeadSync()
-  , head = HEAD.substr(0,7)
-
-mars.goto(HEAD, 'start', function(err, prev, cur) {
-  if (err) cl.exit(100, err)
-
-  console.log('Moved to beginning: %s', cur.shortName.bold.green)
-})
+var cli = require('../lib/cli')
+cli.nav('start')
 
