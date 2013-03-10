@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+
+var usage = program.usage()
+usage += [
+  " [msg]\n",
+  "\n",
+  "  Tag your demo."
+].join('')
+
+program.usage(usage)
+
+program.version(require('../package').version)
+  .parse(process.argv)
+

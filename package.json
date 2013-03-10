@@ -1,28 +1,35 @@
 {
-  "name" : "omed", 
-  "version" : "0.0.1",
-  "description" :"",
-  "homepage" : [
+  "name": "omed",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": [
     ""
   ],
-  "repository" : {
-    "type" : "git", 
-    "url" : ""
+  "repository": {
+    "type": "git",
+    "url": ""
   },
-  "keywords" : [],
-  "author" : "JP Richardson <jprichardson@gmail.com>",
-  "licenses" : [ {
-    "type" : "MIT",
-    "url" : ""
-  }],
-  "dependencies" : {},
-   "devDependencies":{},
-  "main" : "./lib/omed.js",
+  "keywords": [],
+  "author": "JP Richardson <jprichardson@gmail.com>",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": ""
+    }
+  ],
+  "dependencies": {
+    "commander": "~1.1.1",
+    "cli-table": "~0.2.0",
+    "colors": "~0.6.0-1",
+    "cl": "0.0.1"
+  },
+  "devDependencies": {},
+  "main": "./lib/omed.js",
   "scripts": {
     "test": "mocha test"
   },
   "bin": {
-    "omed": "./bin/omed"
+    "omed-overview": "./bin/omed-overview"
   },
   "preferGlobal": true
 }
