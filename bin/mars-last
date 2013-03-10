@@ -1,2 +1,18 @@
 #!/usr/bin/env node
 
+
+var mars = require('../lib/mars')
+  , string = require('string')
+  , cl = require('cl')
+  , colors = require('colors')
+
+mars.checkGitDirExistsSync()
+
+var HEAD = mars.getHeadSync()
+  , head = HEAD.substr(0,7)
+
+mars.goto(HEAD, 'last', function(err, prev, cur) {
+  if (err) cl.exit(100, err)
+
+  console.log('Moved to last: %s', cur.shortName.bold.green)
+})
