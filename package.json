@@ -1,7 +1,7 @@
 {
   "name": "mars",
   "version": "0.0.1",
-  "description": "",
+  "description": "Tag steps in your code and navigate to them using Git.",
   "homepage": [
     ""
   ],
@@ -30,7 +30,13 @@
     "test": "mocha test"
   },
   "bin": {
-    "mars-overview": "./bin/mars-overview"
+    "mars-overview": "./bin/mars-overview",
+    "mars-goto": "./bin/mars-goto",
+    "mars-last": "./bin/mars-last",
+    "mars-next": "./bin/mars-next",
+    "mars-prev": "./bin/mars-prev",
+    "mars-start": "./bin/mars-start",
+    "mars-tag": "./bin/mars-tag"
   },
   "preferGlobal": true
 }
