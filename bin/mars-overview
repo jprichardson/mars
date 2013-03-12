@@ -14,7 +14,7 @@ var hobj = mars.getHeadObjSync()
 
 var table = new Table({
   head: ['^', '#', 'commit', 'desc', 'date'],
-  colWidths: [4, 6, 10, 40, 30]
+  colWidths: [4, 6, 10, 60, 30]
 })
 
 var rows = []
