@@ -17,7 +17,7 @@ process.stdin.on('keypress', function (ch, key) {
   }
 
   if (key && key.name === 'right') { //next
-    console.log('next')
+    execMars('next')
     return
   } 
   else if (key && key.name === 'left') { //previous
@@ -60,6 +60,7 @@ function execMars (name, param) {
   exec(marsBin, function(err, stdout, stderr) {
     if (err) console.error(err.toString().red)
     process.stdout.write(stdout)
+    //exec('osascript -e \'tell app "Sublime Text 2" to activate\'', function(){})
   })
 }
 
