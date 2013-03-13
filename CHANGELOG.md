@@ -1,3 +1,7 @@
+0.0.5 / 2013-03-13
+------------------
+* fix bug when branchname contains '.' character because of `string.js` `truncate()` method.
+
 0.0.4 / 2013-03-12
 ------------------
 * fix `mars-kbserver`
