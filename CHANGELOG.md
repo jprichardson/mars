@@ -1,3 +1,7 @@
+0.0.3 / 2013-03-12
+------------------
+* added `mars-kbserver`
+
 0.0.2 / 2013-03-11
 ------------------
 * `mars-overview` widened the `description` column

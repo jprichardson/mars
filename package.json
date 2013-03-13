@@ -23,7 +23,8 @@
     "colors": "~0.6.0-1",
     "cl": "0.0.1",
     "string": "~1.2.1",
-    "nextflow": "~0.3.0"
+    "nextflow": "~0.3.0",
+    "keypress": "~0.1.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -36,7 +37,8 @@
     "mars-next": "./bin/mars-next",
     "mars-prev": "./bin/mars-prev",
     "mars-start": "./bin/mars-start",
-    "mars-tag": "./bin/mars-tag"
+    "mars-tag": "./bin/mars-tag",
+    "mars-kbserver": "./bin/mars-kbserver"
   },
   "preferGlobal": true
 }

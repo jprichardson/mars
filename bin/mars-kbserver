@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+var keypress = require('keypress')
+  , path = require('path')
+  , exec = require('child_process').exec
+  , colors = require('colors')
+  , S = require('string')
+
+keypress(process.stdin)
+
+console.log("listening...")
+var numBuffer = ''
+process.stdin.on('keypress', function (ch, key) {
+  if (key && key.ctrl && key.name == 'c') {
+    process.stdin.pause()
+    return
+  }
+
+  if (key && key.name === 'right') { //next
+    console.log('next')
+    return
+  } 
+  else if (key && key.name === 'left') { //previous
+    execMars('prev')
+    return
+  }
+
+  if (ch === 's') {
+    execMars('start')
+    return
+  }
+  else if (ch === 'l' || ch === 'e') {
+    execMars('last')
+    return
+  } 
+  else if (ch === 'o') {
+    execMars('overview')
+    return
+  }
+  else if (S(ch).isNumeric()) {
+    numBuffer += ch
+  }
+
+  if (key && key.name === 'enter') {
+    if (!numBuffer) return console.error("No number entered.")
+    execMars('goto', numBuffer)
+    numBuffer = ''
+    return;
+  }
+})
+
+process.stdin.setRawMode(true);
+process.stdin.resume();
+
+function execMars (name, param) {
+  var marsBin = path.join(__dirname, 'mars-' + name)
+  if (param) {
+    marsBin += ' ' + param
+  }
+  exec(marsBin, function(err, stdout, stderr) {
+    if (err) console.error(err.toString().red)
+    process.stdout.write(stdout)
+  })
+}
+
