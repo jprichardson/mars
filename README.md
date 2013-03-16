@@ -18,10 +18,10 @@ Installation
 
 
 
-Example
-------
+How
+---
 
-Docs later. Let me use it during my first presentation in a week, and I'll know how well it works.
+Mars works by leveraging the power of Git tags and Git's checkout functionality. What you need to do is build your demo and at points that you want to demo, simply execute `mars-tag`.
 
 
 License
