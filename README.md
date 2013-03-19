@@ -38,28 +38,193 @@ Let's pretend that you want to show a group how Node.js work. Let's say that the
 Assuming that Node.js, Git, and Mars are installed...
 
 
-### setup demo package
+### setup demo package, tag step 0
 
-Let's go to a tmp directory:
+let's go to a tmp directory:
 
     cd /tmp
 
-Create an empty js file:
+create a tmp dir:
+
+    mkdir testmars && cd testmars
+
+create an empty js file:
 
     touch app.js
 
-Put some content in it:
+put some content in it:
 
     echo "console.log('hello world');" > app.js
 
-Commit it: 
+commit it: 
 
     git init && git add . && git commit -m "hello world"
 
-Tag it with Mars:
+tag it with Mars:
 
     mars-tag
 
+now get an overview:
+
+    mars-overview
+
+...outputs:
+
+```
+┌────┬──────┬──────────┬────────────────────────────────────────────────────────────┬──────────────────────────────┐
+│ ^  │ #    │ commit   │ desc                                                       │ date                         │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│ => │ 0    │ abc5a40  │ hello world                                                │ 2013-03-19 00:59:46 -0500    │
+└────┴──────┴──────────┴────────────────────────────────────────────────────────────┴──────────────────────────────┘
+```
+
+Notice the `=>`? This indicates your current step in your presentation.
+
+
+### create another step 1
+
+OK, you've demonstrated how to print `hello world` to the console. Now you want to demonstrate functions:
+
+modify app.js to contain the following:
+
+```js
+function sum(x, y) {
+  return x + y;
+}
+
+console.log("The sum of 3 + 4 is %d", sum(3,4));
+
+```
+
+commit changes:
+
+    git commit -am "demonstrating sum function"
+
+tag it:
+
+    mars-tag
+
+get an overview:
+
+    mars-overview
+
+...outputs:
+
+```
+┌────┬──────┬──────────┬────────────────────────────────────────────────────────────┬──────────────────────────────┐
+│ ^  │ #    │ commit   │ desc                                                       │ date                         │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│    │ 0    │ abc5a40  │ hello world                                                │ 2013-03-19 00:59:46 -0500    │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│ => │ 1    │ 105b0ac  │ demonstrating sum function                                 │ 2013-03-19 09:46:54 -0500    │
+└────┴──────┴──────────┴────────────────────────────────────────────────────────────┴──────────────────────────────┘
+```
+
+
+### create the last step 2
+
+Now you want to demonstrate to how to use a function from a module:
+
+create the new file:
+
+    touch sum.js
+
+modify `sum.js` to look like this:
+
+```js
+module.exports = function sum(x, y) {
+  return x + y;
+}
+```
+
+modify `app.js` to look like this:
+
+```js
+var sum = require('./sum')
+
+console.log("The sum of 3 + 4 is %d", sum(3,4));
+
+```
+
+commit it:
+
+    git add . && git commit -am "added a module"
+
+tag it:
+
+    mars-tag
+
+get an overview if you like:
+
+    mars-overview
+
+...outputs:
+
+```
+┌────┬──────┬──────────┬────────────────────────────────────────────────────────────┬──────────────────────────────┐
+│ ^  │ #    │ commit   │ desc                                                       │ date                         │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│    │ 0    │ abc5a40  │ hello world                                                │ 2013-03-19 00:59:46 -0500    │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│    │ 1    │ 105b0ac  │ demonstrating sum function                                 │ 2013-03-19 09:46:54 -0500    │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│ => │ 2    │ b4b159b  │ added a module                                             │ 2013-03-19 09:50:46 -0500    │
+└────┴──────┴──────────┴────────────────────────────────────────────────────────────┴──────────────────────────────┘
+```
+
+
+### demo time
+
+Now you're ready to show off your demo.
+
+let's go to the start
+
+    mars-start
+
+You should modify your bash shell to show your current git branch, or download [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh). When you run `mars-start`, you'll notice that your shell display changes from:
+
+    testmars git:(master)
+
+to
+
+    testmars git:(demo/0-hello-world)
+
+When you ran `mars-start`, it created a new git branch named **demo/0-hello-world**. Notice how `app.js` is back to its original state?
+
+get an overview if you like:
+
+    mars-overview
+
+...outputs:
+
+```
+┌────┬──────┬──────────┬────────────────────────────────────────────────────────────┬──────────────────────────────┐
+│ ^  │ #    │ commit   │ desc                                                       │ date                         │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│ => │ 0    │ abc5a40  │ hello world                                                │ 2013-03-19 00:59:46 -0500    │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│    │ 1    │ 105b0ac  │ demonstrating sum function                                 │ 2013-03-19 09:46:54 -0500    │
+├────┼──────┼──────────┼────────────────────────────────────────────────────────────┼──────────────────────────────┤
+│    │ 2    │ b4b159b  │ added a module                                             │ 2013-03-19 09:50:46 -0500    │
+└────┴──────┴──────────┴────────────────────────────────────────────────────────────┴──────────────────────────────┘
+```
+
+Notice that the `=>` is at step 0 now?
+
+Now you can run the following commands:
+
+- `mars-next`: go to the next step
+- `mars-last`: go to the last step
+- `mars-prev`: go to the previous step
+- `mars-goto [n]`: go to the nth step
+
+You can also run `mars-kbserver` and then press the `[right arrow]`, `[left arrow]`, `l`, `s`, or type in a number and press `[enter]` to navigate through your demo. Mars will create and clean up branches as needed.
+
+
+Todo
+----
+
+Create a Sublime Text 2 plugin to highlight the lines to easily visibly see what changed. 
 
 
 License
