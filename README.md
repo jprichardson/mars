@@ -10,10 +10,18 @@ Why?
 Live coding demos can sometimes suck for noob-presenters. This makes it a lot better. Code up your demo. Tag spots that you want to show off. Let Mars checkout each one in sequential order when presenting.
 
 
+Name
+----
+
+One of the moons of Mars is named "Deimos". "Deimos" looks like "demos". But "Deimos" is pronounced kind of weird in English. Hence choosing the name "Mars".
+
+
+
 Requirements
 ------------
 
 You need NPM, Node.js, and Git installed. Fortunately, Node.js includes NPM. You can download Node.js for your platform here: http://nodejs.org/download/
+
 
 
 Installation
