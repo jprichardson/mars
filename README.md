@@ -181,7 +181,7 @@ let's go to the start
 
     mars-start
 
-You should modify your bash shell to show your current git branch, or download [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh). When you run `mars-start`, you'll notice that your shell display changes from:
+**Note:** You should modify your bash shell to show your current git branch, or download [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh). When you run `mars-start`, you'll notice that your shell display changes from:
 
     testmars git:(master)
 
@@ -225,6 +225,12 @@ Todo
 ----
 
 Create a Sublime Text 2 plugin to highlight the lines to easily visibly see what changed. 
+
+
+Presentations / Demos Using Mars
+--------------------------------
+
+I'll be uploading my video soon. If you use it, send me a link, and I'll add it here.
 
 
 License
