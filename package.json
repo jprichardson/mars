@@ -1,6 +1,6 @@
 {
   "name": "mars",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Tag steps in your code and navigate to them using Git.",
   "homepage": [
     ""
