@@ -229,10 +229,13 @@ Now you can run the following commands:
 You can also run `mars-kbserver` and then press the `[right arrow]`, `[left arrow]`, `l`, `s`, or type in a number and press `[enter]` to navigate through your demo. Mars will create and clean up branches as needed.
 
 
-Todo
-----
+Sublime Text 2 Plugin
+---------------------
 
-Create a Sublime Text 2 plugin to highlight the lines to easily visibly see what changed. 
+This allows you to highlight the lines that have changed since the last Mars tag. The purpose is to make it very clear to your audience which lines have changed.
+
+https://github.com/jprichardson/sublime-mars
+
 
 
 Presentations / Demos Using Mars
