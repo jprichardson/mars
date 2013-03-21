@@ -1,0 +1,82 @@
+#!/usr/bin/env node
+
+var exec = require('child_process').exec
+  , Table = require('cli-table')
+  , colors = require('colors')
+  , cl = require('cl')
+  , fs = require('fs')
+  , mars = require('../lib/mars')
+  , program = require('commander')
+  , util = require('util')
+  , S = require('string')
+  , pp = require('parentpath')
+  , path = require('path')
+
+var usage = program.usage()
+usage += [
+  util.format(" %s\n", "<file>"),
+    "\n",
+    util.format("  %s", "View diff of file compared to last step.")
+].join('')
+
+program.usage(usage)
+
+program.version(require('../package').version)
+  .option('--colors', 'enable colors')
+  .option('--lines', 'only output line numbers of changed lines')
+  .parse(process.argv)
+
+var fileName = program.args[0]
+if (!fileName) cl.exit(100, 'Need to pass in a file name.')
+
+process.chdir(path.dirname(path.resolve(fileName)))
+
+pp('.git', function(dir) { 
+  if (!dir) cl.exit(102, "Can't resolve .git directory from filename: %s", fileName)
+  process.chdir(dir)
+
+  var hobj = mars.getHeadObjSync()
+  mars.getMarsData(hobj.HEAD, function(err, data, current) {
+    if (current  < 1) return
+
+    var prev = data[current - 1]
+    exec(util.format('git diff %s %s', prev.commit, fileName), function(err, stdout, stderr) {
+      if (err) cli.exit(101, err)
+
+      var keep = false
+      var lines = stdout.split('\n').filter(function(line) {
+        //console.log(line)
+        if (!keep) {
+          keep = (S(line).trim().startsWith('@@') && S(line).trim().endsWith('@@'))
+          return false;
+        } else 
+          return true;
+      })
+
+      for (var i = 0; i < lines.length; ++i) {
+        var line = lines[i]
+          , lineNum = i + 1
+
+        if (!program.lines) {
+          if (program.colors) {
+            if (S(line).startsWith('+'))
+              console.log("%d: %s", lineNum, line.green)
+            if (S(line).startsWith('-'))
+              console.log("%d: %s", lineNum, line.red)
+          } else {
+            if (S(line).startsWith('+') || S(line).startsWith('-'))
+              console.log("%d: %s", lineNum, line)
+          }
+        } else {
+          if (S(line).startsWith('+') && S(line).chompLeft('+').trim().length > 0) { //only changed or added lines
+            process.stdout.write(lineNum + ' ')
+          }
+        }
+      }
+    })
+  })  
+})
+
+
+
+
